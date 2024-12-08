@@ -1,0 +1,21 @@
+raspiberry-pi 64bit os
+
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y vim code ibus ibus-hangul fonts-nanum fonts-unfonts-core
+
+sudo apt-get install -y libopencv-dev python3-opencv
+pip3 install torch --break-system-packages
+pip3 install ultralytics --break-system-packages
+
+import 이상시 다음과 같이 할것
+pip3 show ultralytics
+
+/home/{USER}/.local/lib/python3.11/site-packages/ultralytics 폴더로 이동
+=> __init__.py 찾아서
+=> import package 주석처리
+
+from ultralytics import YOLO
+model = YOLO("yolo11n.pt")
+results = model("https://ultralytics.com/images/bus.jpg")
+
