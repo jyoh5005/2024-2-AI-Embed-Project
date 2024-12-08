@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory Structure</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f9f9f9; color: #333; }
+        .folder { font-weight: bold; color: #007acc; }
+        .file { font-weight: bold; color: #ff9900; }
+        .function { color: #008000; }
+        .comment { color: #666; font-style: italic; }
+    </style>
+</head>
+<body>
+<pre>
+<span class="folder">project/</span>
+│
+├── <span class="folder">embed/</span>
+│   ├── <span class="file">fire.py</span>
+│       ├── <span class="function">test_sensor()</span>            <span class="comment"># 센서 테스트</span>
+│       ├── <span class="function">monitor_gas()</span>            <span class="comment"># 가스 모니터링</span>
+│       ├── <span class="function">detect_humans(show_img=False)</span>  <span class="comment"># 사람 감지</span>
+│       ├── <span class="function">sound_warning()</span>          <span class="comment"># 경고음 출력</span>
+│       ├── <span class="function">display_people()</span>         <span class="comment"># 디스플레이 출력</span>
+│       └── <span class="function">main()</span>                   <span class="comment"># 프로그램 실행 흐름</span>
+│
+└── <span class="folder">util/</span>
+    ├── <span class="file">__init__.py</span>
+    ├── <span class="file">fire_camera.py</span>
+    │       └── <span class="function">check_human(picam2, model, show_img=False)</span>  <span class="comment"># 사람 확인</span>
+    ├── <span class="file">fire_digit4.py</span>              
+    │       ├── <span class="function">display_digit4(display_number, SEGMENTS, DIGITS, NUMBERS)</span>  <span class="comment"># 숫자 표시</span>
+    │       ├── <span class="function">display_none(SEGMENTS, DIGITS, NONE_INFO)</span>                  <span class="comment"># NONE 표시</span>
+    │       └── <span class="function">test_digit4(SEGMENTS, DIGITS, NUMBERS)</span>                     <span class="comment"># 디스플레이 테스트</span>
+    ├── <span class="file">fire_gas.py</span>
+    │       ├── <span class="function">read_adc(spi, channel=0)</span>          <span class="comment"># 가스 데이터 읽기</span>
+    │       ├── <span class="function">check_init_gas(spi, channel=0)</span>    <span class="comment"># 가스 센서 초기화</span>
+    │       └── <span class="function">test_gas(spi, channel=0)</span>          <span class="comment"># 가스 센서 테스트</span>
+    ├── <span class="file">fire_led.py</span>
+    │       └── <span class="function">test_all_LED(LED_PINS)</span>            <span class="comment"># LED 깜빡임 테스트</span>
+    └── <span class="file">fire_speaker.py</span>
+            ├── <span class="function">test_speaker(SPEAKER_PIN)</span>         <span class="comment"># 스피커 테스트</span>
+            └── <span class="function">warning_speaker(pwm)</span>              <span class="comment"># 경고음 출력</span>
+</pre>
+</body>
+</html>

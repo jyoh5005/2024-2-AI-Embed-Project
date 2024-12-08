@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Detection Script</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-left: 4px solid #0078d4;
+            overflow-x: auto;
+        }
+        .step {
+            margin-bottom: 20px;
+        }
+        .step h2 {
+            margin-bottom: 10px;
+            color: #0078d4;
+        }
+        .step ul {
+            margin-left: 20px;
+            list-style: square;
+        }
+        .step ul li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fire Detection Script Flow</h1>
+        <p>이 스크립트는 화재와 사람을 동시에 감지하기 위해 설계되었습니다. 아래는 주요 단계를 설명합니다:</p>
+
+        <!-- Step 1 -->
+        <div class="step">
+            <h2>1. 초기 GPIO 및 카메라 설정</h2>
+            <p>시작 시, 필요한 GPIO 핀과 카메라를 초기화합니다.</p>
+            <ul>
+                <li><b>GPIO 핀:</b> LED, 버튼, 7-Segment 디스플레이, 스피커 핀 설정</li>
+                <li><b>카메라:</b> Picamera2를 설정하고 미리보기 구성</li>
+                <li><b>AI 모델 로드:</b> YOLO 모델 로드 완료</li>
+            </ul>
+            <pre><code>
+GPIO.setmode(GPIO.BCM)
+picam2 = Picamera2()
+model = YOLO("./yolo11n.pt")
+            </code></pre>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step">
+            <h2>2. 센서 테스트</h2>
+            <p>센서들이 정상적으로 작동하는지 테스트를 진행합니다.</p>
+            <ul>
+                <li>카메라로 객체 탐지</li>
+                <li>7-Segment 디스플레이 테스트</li>
+                <li>가스 센서 초기화 및 테스트</li>
+                <li>LED 및 스피커 테스트</li>
+            </ul>
+            <pre><code>
+if test_sensor():
+    print("센서 정상 작동!")
+else:
+    print("센서 오류 발생!")
+            </code></pre>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step">
+            <h2>3. 가스 검출 진행</h2>
+            <p>가스 센서로 현재 공기 상태를 모니터링하고 이상 여부를 판단합니다.</p>
+            <ul>
+                <li>가스 초기 값 확인</li>
+                <li>기준치 이상의 값이 발생하면 화재로 판단</li>
+                <li>LED 색상 변경 (초록 → 빨강)</li>
+            </ul>
+            <pre><code>
+if monitor_gas():
+    GPIO.output(LED_PINS['Green'], GPIO.LOW)
+    GPIO.output(LED_PINS['Red'], GPIO.HIGH)
+    print("화재 감지!")
+            </code></pre>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step">
+            <h2>4. 객체 탐지 진행</h2>
+            <p>카메라를 통해 사람 탐지를 수행하며, 탐지된 사람 수를 디스플레이에 표시합니다.</p>
+            <ul>
+                <li>YOLO 모델로 객체 탐지</li>
+                <li>탐지된 사람 수를 4-Digit 7-Segment에 표시</li>
+                <li>사람 탐지 결과를 반복적으로 업데이트</li>
+            </ul>
+            <pre><code>
+threads.append(threading.Thread(target=display_people))
+threads.append(threading.Thread(target=sound_warning))
+threads.append(threading.Thread(target=detect_humans, args=(args.show_img,)))
+            </code></pre>
+        </div>
+
+        <h2>결론</h2>
+        <p>이 스크립트는 센서와 AI 모델을 결합하여 실시간으로 화재 및 사람을 감지할 수 있도록 설계되었습니다. 모든 단계를 정상적으로 완료하면 시스템이 가스 상태를 모니터링하며, 이상 발생 시 경고음과 함께 경고를 표시합니다.</p>
+    </div>
+</body>
+</html>
